@@ -143,7 +143,20 @@ Below, we use \etimesets to represent the partitioning of comparisons to
 divergence events, which we will also refer to as a ``divergence model,'' and
 \etimes to represent the unique divergence times within \etimesets.
 
-\subsection{Dirichlet-process (DP) prior}
+We use a full-likelihood Bayesian approach to jointly infer
+the divergence model (\etimesets), divergence times
+(\etimes),
+and comparison-specific parameters (\epopsize, \murate, and \gfreq)
+\citep{Oaks2018ecoevolity,Oaks2019codemog}.
+We compare three models for specifying the probability of all
+possible divergence models (\etimesets):
+A Dirichlet-process (DP), Pitman-Yor process (PYP), and
+weighted-uniform (WU) model.
+For all of these models we assume the time of each divergence event (\etime) is
+distributed according to a parametric continuous probability distribution, like
+a gamma.
+
+\subsection{Dirichlet-process (DP) model}
 
 \begin{linenomath}
 \citet{Oaks2018ecoevolity} treated the number of divergence events and the
@@ -168,7 +181,7 @@ or we assign it to an existing event $x$ with probability
 where $n_x$ is the number of comparisons already assigned to event $x$.
 \end{linenomath}
 
-\subsection{Pitman-Yor-process (PYP) prior}
+\subsection{Pitman-Yor-process (PYP) model}
 
 \begin{linenomath}
 \citet{PitmanYor1997} generalized the Dirichlet process by adding a
@@ -190,7 +203,7 @@ Alternatively, we assign it to an existing event $x$ with probability
 Notice, when $\discount = 0$, the PYP is equivalent to the DP.
 \end{linenomath}
 
-\subsection{Weighted-uniform (\wunif) prior}
+\subsection{Weighted-uniform (\wunif) model}
 We have also implemented a uniform prior over divergence models, where we can
 assume \emph{a priori} that every possible divergence model (\etimesets) is
 equally probable.
@@ -217,7 +230,7 @@ We use Markov chain Monte Carlo (MCMC) algorithms to sample from the joint
 posterior distribution of the divergence model (\etimesets), divergence times
 (\etimes), effective population sizes (\epopsize), and any mutation rate
 (\murate) or substitution parameters (\gfreq) that are free to vary
-\cite{Oaks2018ecoevolity,Oaks2019codemog}.
+\citep{Oaks2018ecoevolity,Oaks2019codemog}.
 We use a suite of univariate and multivariate Metropolis-Hastings moves to
 update the parameters of the model \citep{Metropolis1953,Hastings1970}.
 The latter improve mixing in the face of correlations among divergence times,
