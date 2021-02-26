@@ -404,6 +404,121 @@ To do \ldots
 
 \subsubsection{Comparing three models of shared evolutionary events}
 
+We found that the DP, PYP, and WU models estimated the number of divergence
+events (\nevents) similarly well when applied to \datasets simulated under one
+of the these models (\fig~\ref{fig:neventsgrid}).
+However, when we compare the ability of the models to estimate
+the divergence model (\etimesets), we see that the WU
+model underperforms relative to the DP and PYP models when applied
+to data generated under the DP and PYP models
+(first two rows of \fig~\ref{fig:modeldistancegrid}).
+The DP and PYP models show more robustness when applied to
+data generated under the WU model
+(bottom row of \fig~\ref{fig:modeldistancegrid}).
+
+When applied to \datasets where all 10 pairs of populations diverged
+independently, the PYP model performs slightly better than the other two models
+(top row of \fig~\ref{fig:neventsfixedcomparison}).
+All three models almost always correctly infer a single shared divergence event
+with high posterior probability when it is true
+(bottom row of \fig~\ref{fig:neventsfixedcomparison}).
+
+\begin{figure}[htbp]
+    \begin{center}
+        \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{../images/from-project-repo/infer-columns-by-data-rows-nevents-cropped-rasterized.pdf}
+        \captionsetup{listformat=figList}
+        \caption{
+        The models perform similarly in estimating the number of divergence
+        events.
+        Each plot shows the results for 720 \datasets
+        simulated under the
+        DP (top row),
+        PYP (middle row),
+        or
+        WU (bottom row)
+        and analyses using the
+        DP (left column),
+        PYP (middle column),
+        or
+        WU (right column).
+        The number of \datasets that fall within each possible cell of true
+        versus estimated numbers of events is shown, and cells with more
+        \datasets are shaded darker.
+        % The estimates are based on the number of events with the maximum
+        % \textit{a posteriori} (MAP) probability.
+        Above each plot is
+        the proportion of \datasets for which the number of events with the largest
+        posterior probability matched the true number of events---$p(\hat{\nevents}
+        = \nevents)$,
+        the median posterior probability of the correct number of events across all
+        \datasets---$\widetilde{p(\nevents|\alldata)}$, and
+        the proportion of \datasets for which the true number of events was
+        included in the 95\% credible set---$p(\nevents \in
+        \textrm{CS})$.
+        We generated the plot using matplotlib Version 3.1.3
+        \citep{matplotlib}.
+        }
+        \label{fig:neventsgrid}
+    \end{center}
+\end{figure}
+
+\begin{figure}[htbp]
+    \begin{center}
+        \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{../images/from-project-repo/infer-columns-by-data-rows-model-distance-box-cropped.pdf}
+        \captionsetup{listformat=figList}
+        \caption{
+        Comparing the models' ability to estimate the divergence model.
+        Each plot shows posterior mean distances from the true model
+        for 720 \datasets
+        simulated under the
+        DP (top row),
+        PYP (middle row),
+        or
+        WU (bottom row)
+        and analyses using the
+        DP (left column),
+        PYP (middle column),
+        or
+        WU (right column).
+        % The estimates are based on the number of events with the maximum
+        % \textit{a posteriori} (MAP) probability.
+        The mean model distance across all 720 analyses is shown at the top of
+        each plot.
+        We generated the plot using matplotlib Version 3.1.3
+        \citep{matplotlib}.
+        }
+        \label{fig:modeldistancegrid}
+    \end{center}
+\end{figure}
+
+\begin{figure}[htbp]
+    \begin{center}
+        \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{../images/from-project-repo/infer-columns-by-fixed-rows-nevents-cropped.pdf}
+        \captionsetup{listformat=figList}
+        \caption{
+        The PYP (middle column) model performs better than the DP (left column)
+        and WU (right column) models when analyzing simulated \datasets for
+        which all 10 population pairs diverged independently (top row).
+        All three models almost always correctly infer a single shared
+        divergence event with high confidence when analyzing simulated
+        \datasets for which that is true (bottom row).
+        Each plot shows the results for 720 \datasets.
+        Above each plot is
+        the proportion of \datasets for which the number of events with the largest
+        posterior probability matched the true number of events---$p(\hat{\nevents}
+        = \nevents)$,
+        the median posterior probability of the correct number of events across all
+        \datasets---$\widetilde{p(\nevents|\alldata)}$, and
+        the proportion of \datasets for which the true number of events was
+        included in the 95\% credible set---$p(\nevents \in
+        \textrm{CS})$.
+        We generated the plot using matplotlib Version 3.1.3
+        \citep{matplotlib}.
+        }
+        \label{fig:neventsfixedcomparison}
+    \end{center}
+\end{figure}
+
 Summary Statistics
 Before looking at the results here are some summary statistics that we need to 
 understand in order to interpret the results. Coverage or credible sites is the probability
