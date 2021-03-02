@@ -425,97 +425,24 @@ with high posterior probability when it is true
 
 \begin{figure}[htbp]
     \begin{center}
-        \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{../images/from-project-repo/infer-columns-by-data-rows-nevents-cropped-rasterized.pdf}
-        \captionsetup{listformat=figList}
-        \caption{
-        The models perform similarly in estimating the number of divergence
-        events.
-        Each plot shows the results for 720 \datasets
-        simulated under the
-        DP (top row),
-        PYP (middle row),
-        or
-        WU (bottom row)
-        and analyses using the
-        DP (left column),
-        PYP (middle column),
-        or
-        WU (right column).
-        The number of \datasets that fall within each possible cell of true
-        versus estimated numbers of events is shown, and cells with more
-        \datasets are shaded darker.
-        % The estimates are based on the number of events with the maximum
-        % \textit{a posteriori} (MAP) probability.
-        Above each plot is
-        the proportion of \datasets for which the number of events with the largest
-        posterior probability matched the true number of events---$p(\hat{\nevents}
-        = \nevents)$,
-        the median posterior probability of the correct number of events across all
-        \datasets---$\widetilde{p(\nevents|\alldata)}$, and
-        the proportion of \datasets for which the true number of events was
-        included in the 95\% credible set---$p(\nevents \in
-        \textrm{CS})$.
-        We generated the plot using matplotlib Version 3.1.3
-        \citep{matplotlib}.
-        }
-        \label{fig:neventsgrid}
-    \end{center}
-\end{figure}
-
-\begin{figure}[htbp]
-    \begin{center}
-        \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{../images/from-project-repo/infer-columns-by-data-rows-model-distance-box-cropped.pdf}
+        \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{../images/from-project-repo/model-performance-violin-cropped.pdf}
         \captionsetup{listformat=figList}
         \caption{
         Comparing the models' ability to estimate the divergence model.
-        Each plot shows posterior mean distances from the true model
-        for 720 \datasets
-        simulated under the
-        DP (top row),
-        PYP (middle row),
-        or
-        WU (bottom row)
-        and analyses using the
-        DP (left column),
-        PYP (middle column),
-        or
-        WU (right column).
-        % The estimates are based on the number of events with the maximum
-        % \textit{a posteriori} (MAP) probability.
-        The mean model distance across all 720 analyses is shown at the top of
-        each plot.
+        Each column of plots compares the performance of the Dirichlet process
+        (DP), Pitman-Yor process (PYP) and weighted-uniform (WU) models when
+        analyzing 720 \datasets simulated under the (from left-to-right)
+        simultaneous-divergence, DP, PYP, WU, and independent-divergences
+        model. 
+        The first row shows the mean distance from the true
+        divergence model (\etimesets) of the posterior samples
+        \citep{Kuhn1955,Munkres1957,Gusfield2002} calculated
+        using Version 1.1.4 of the munkres Python package
+        \citep{Clapper2020}.
         We generated the plot using matplotlib Version 3.1.3
         \citep{matplotlib}.
         }
         \label{fig:modeldistancegrid}
-    \end{center}
-\end{figure}
-
-\begin{figure}[htbp]
-    \begin{center}
-        \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{../images/from-project-repo/infer-columns-by-fixed-rows-nevents-cropped.pdf}
-        \captionsetup{listformat=figList}
-        \caption{
-        The PYP (middle column) model performs better than the DP (left column)
-        and WU (right column) models when analyzing simulated \datasets for
-        which all 10 population pairs diverged independently (top row).
-        All three models almost always correctly infer a single shared
-        divergence event with high confidence when analyzing simulated
-        \datasets for which that is true (bottom row).
-        Each plot shows the results for 720 \datasets.
-        Above each plot is
-        the proportion of \datasets for which the number of events with the largest
-        posterior probability matched the true number of events---$p(\hat{\nevents}
-        = \nevents)$,
-        the median posterior probability of the correct number of events across all
-        \datasets---$\widetilde{p(\nevents|\alldata)}$, and
-        the proportion of \datasets for which the true number of events was
-        included in the 95\% credible set---$p(\nevents \in
-        \textrm{CS})$.
-        We generated the plot using matplotlib Version 3.1.3
-        \citep{matplotlib}.
-        }
-        \label{fig:neventsfixedcomparison}
     \end{center}
 \end{figure}
 
