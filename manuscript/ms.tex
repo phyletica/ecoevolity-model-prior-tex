@@ -22,6 +22,12 @@
 % \title{Comparing hiearchicial Bayesian priors for estimating shared evolutionary events}
 
 \author[1]{Tashitso Anamza}
+\author[1]{Tanner Myers}
+\author[1]{Randy Klabacka}
+\author[1]{Perry L.\ Wood, Jr.}
+\author[1]{Claire Tracy}
+\author[1]{Kerry Cobb}
+\author[1]{Matthew Buehler}
 \author[1]{Jamie R.\ Oaks \thanks{Corresponding author: \href{mailto:joaks@auburn.edu}{\tt joaks@auburn.edu}}}
 \affil[1]{Department of Biological Sciences \& Museum of Natural History, Auburn University, Auburn, Alabama 36849}
 
@@ -394,7 +400,46 @@ We analyzed all 2,880 \datasets under the DP, PYP, and \wunif models
 both with and without invariant characters, as
 described above.
 
-\subsubsection{An empirical application}
+\subsubsection{Quantifying the performance on simulated data}
+
+The primary goal of methods like \ecoevolity is to infer the number of
+divergence events and the assignment of the comparisons to those events
+(\etimesets).
+To quantify the error in estimating \etimesets from each simulated \dataset, we
+used the partition distance between the true \etimesets and those sampled from
+the posterior distribution of the DP, PYP, and \wunif models
+\citep{Regnier1983,Gusfield2002}.
+In our context, the partition distance between the true and sampled \etimesets
+is the minimum number of divergence comparisons that need to be removed for the
+assignment of the remaining comparisons to divergence events to match between
+the two \etimesets.
+% Below we will refer to this distance as \etimesets error.
+To calculate this distance we used the Hungarian (or Kuhn-Munkres) algorithm
+\citep{Kuhn1955,Munkres1957}
+as implemented in Version 1.1.4 of the Munkres Python package
+\citep{Clapper2020}.
+
+In addition to partition distances as metric for \etimesets error, we used
+three additional statistics to quantify performance in estimating \etimesets:
+$p(\hat{\etimesets} =\etimesets)$---
+    the proportion of simulation replicates in which the true \etimesets had
+    the maximum posterior probability,
+% However, this metric can be misleading.
+% For example, in our simultaneous-divergence and independent-divergence simulations,
+% the true divergence model has the maximum prior probability simply because there
+% is only a single model with one and 10 divergences.
+% Thus, if the data provide no information, there is a 50\% chance of the true
+% model having the maximum posterior probability.
+$p(\etimesets \given \alldata)$---
+    the posterior probability of the true divergence model,
+and
+$p(\etimesets \in \textrm{95\% CS})$---
+    the proportion of simulation replicates for which he true \etimesets is
+    included in the 95\% posterior credibility set of divergence models (i.e.,
+    coverage).
+
+
+\subsection{An empirical application}
 
 To do \ldots
 
@@ -404,24 +449,28 @@ To do \ldots
 
 \subsubsection{Comparing three models of shared evolutionary events}
 
-We found that the DP, PYP, and WU models estimated the number of divergence
-events (\nevents) similarly well when applied to \datasets simulated under one
-of the these models (\fig~\ref{fig:neventsgrid}).
-However, when we compare the ability of the models to estimate
-the divergence model (\etimesets), we see that the WU
-model underperforms relative to the DP and PYP models when applied
-to data generated under the DP and PYP models
-(first two rows of \fig~\ref{fig:modeldistancegrid}).
+When we compare the error in estimating the divergence model (\etimesets) and
+the posterior support for the true \etimesets, we see that the WU model
+underperforms relative to the DP and PYP models when applied to data generated
+under the simultaneous, DP, and PYP models
+(first two rows of \fig~\ref{fig:modelperformancegrid}).
 The DP and PYP models show more robustness when applied to
-data generated under the WU model
-(bottom row of \fig~\ref{fig:modeldistancegrid}).
+data generated under the WU model.
+As expected, we find the simulations where all 10 pairs diverged independently
+to be the most challenging scenario for all three models.
+The PYP model performs better than the DP and \wunif model
+when analyzing these most challenging \datasets
+(right-most column of \fig~\ref{fig:modelperformancegrid}).
+This is true across all of the \dataset sizes we simulated
+under the independent-divergences model
+(\fig~\ref{fig:modelperformancebysize})
+However, the differences in performance are small and the order of the three
+models mirror the prior probability they place on the independent-divergences
+model.
 
-When applied to \datasets where all 10 pairs of populations diverged
-independently, the PYP model performs slightly better than the other two models
-(top row of \fig~\ref{fig:neventsfixedcomparison}).
-All three models almost always correctly infer a single shared divergence event
-with high posterior probability when it is true
-(bottom row of \fig~\ref{fig:neventsfixedcomparison}).
+We see similar, albeit more subtle, patterns when we look at the estimated
+number of divergence events
+(\figs S\ref{fig:neventsgrid} and S\ref{fig:neventsfixedcomparison}).
 
 \begin{figure}[htbp]
     \begin{center}
@@ -434,15 +483,54 @@ with high posterior probability when it is true
         analyzing 720 \datasets simulated under the (from left-to-right)
         simultaneous-divergence, DP, PYP, WU, and independent-divergences
         model. 
-        The first row shows the mean distance from the true
-        divergence model (\etimesets) of the posterior samples
-        \citep{Kuhn1955,Munkres1957,Gusfield2002} calculated
-        using Version 1.1.4 of the munkres Python package
-        \citep{Clapper2020}.
+        Mean \etimesets error is the mean partition distance
+        of the posterior samples from the true
+        divergence model (\etimesets),
+        $p(\etimesets \given \alldata)$ is the posterior probability
+        of the true divergence model,
+        $p(\etimesets \given \alldata)$ is the posterior probability of the
+        true divergence model,
+        and
+        $p(\etimesets \in \textrm{95\% CS})$ is the proportion of simulation
+        replicates for which he true \etimesets is included in the 95\%
+        posterior credibility set of divergence models.
+        The bars overlaying the violin plots show the interval between the
+        2.5\% and 97.5\% percentiles, and the white dot is the median.
         We generated the plot using matplotlib Version 3.1.3
         \citep{matplotlib}.
         }
-        \label{fig:modeldistancegrid}
+        \label{fig:modelperformancegrid}
+    \end{center}
+\end{figure}
+
+\begin{figure}[htbp]
+    \begin{center}
+        \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{../images/from-project-repo/nchars-model-performance-violin-cropped.pdf}
+        \captionsetup{listformat=figList}
+        \caption{
+        Comparing the models' ability to estimate the independent-divergence
+        model as the \dataset size increases.
+        Each column of plots compares the performance of the Dirichlet process
+        (DP), Pitman-Yor process (PYP) and weighted-uniform (WU) models when
+        analyzing 720 \datasets with 5,000 to 500,000 characters simulated
+        under the independent-divergences model
+        Mean \etimesets error is the mean partition distance
+        of the posterior samples from the true
+        divergence model (\etimesets),
+        $p(\etimesets \given \alldata)$ is the posterior probability
+        of the true divergence model,
+        $p(\etimesets \given \alldata)$ is the posterior probability of the
+        true divergence model,
+        and
+        $p(\etimesets \in \textrm{95\% CS})$ is the proportion of simulation
+        replicates for which he true \etimesets is included in the 95\%
+        posterior credibility set of divergence models.
+        The bars overlaying the violin plots show the interval between the
+        2.5\% and 97.5\% percentiles, and the white dot is the median.
+        We generated the plot using matplotlib Version 3.1.3
+        \citep{matplotlib}.
+        }
+        \label{fig:modelperformancebysize}
     \end{center}
 \end{figure}
 
