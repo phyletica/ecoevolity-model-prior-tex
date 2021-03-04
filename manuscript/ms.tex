@@ -463,14 +463,32 @@ when analyzing these most challenging \datasets
 (right-most column of \fig~\ref{fig:modelperformancegrid}).
 This is true across all of the \dataset sizes we simulated
 under the independent-divergences model
-(\fig~\ref{fig:modelperformancebysize})
+(\fig~\ref{fig:modelperformancebysize}).
 However, the differences in performance are small and the order of the three
 models mirror the prior probability they place on the independent-divergences
 model.
 
-We see similar, albeit more subtle, patterns when we look at the estimated
+We see similar patterns in the relative performance of the DP, PYP, and
+\wunif models when only the variable characters from the simulated
+\datasets are analyzed
+(\figs S\ref{fig:varonlymodelperformancegrid}
+and S\ref{fig:varonlymodelperformancebysize}).
+However, the performance of all three models is greatly reduced when
+only variable characters are used,
+which is consistent with the findings of
+\citet{Oaks2018ecoevolity,Oaks2018paic,Oaks2019codemog}.
+We also see similar patterns when we look at the estimated
 number of divergence events
-(\figs S\ref{fig:neventsgrid} and S\ref{fig:neventsfixedcomparison}).
+(\figs S\labelcref{fig:neventsgrid,fig:varonlyneventsgrid,fig:neventsfixedcomparison,fig:varonlyneventsfixedcomparison,fig:neventsgridbysize,fig:varonlyneventsgridbysize}), however, many of the patterns are more
+suitable when compared to the 
+
+All three models performed similarly in estimating the divergence times and
+effective sizes of the ancestral and descendant populations
+across all of our simulations
+(\figs S\labelcref{fig:divtimegrid,fig:varonlydivtimegrid,fig:divtimegridbysize,fig:varonlydivtimegridbysize,fig:ancpopsizegrid,fig:varonlyancpopsizegrid,fig:ancpopsizegridbysize,fig:varonlyancpopsizegridbysize,fig:descpopsizegrid,fig:varonlydescpopsizegrid,fig:descpopsizegridbysize,fig:varonlydescpopsizegridbysize}).
+As found previously \citep{Oaks2018ecoevolity,Oaks2018paic,Oaks2019codemog}, using invariant characters results in much greater precision
+in these estimates
+(\figs S\labelcref{fig:divtimegrid,fig:varonlydivtimegrid,fig:divtimegridbysize,fig:varonlydivtimegridbysize,fig:ancpopsizegrid,fig:varonlyancpopsizegrid,fig:ancpopsizegridbysize,fig:varonlyancpopsizegridbysize,fig:descpopsizegrid,fig:varonlydescpopsizegrid,fig:descpopsizegridbysize,fig:varonlydescpopsizegridbysize}).
 
 \begin{figure}[htbp]
     \begin{center}
@@ -513,7 +531,7 @@ number of divergence events
         Each column of plots compares the performance of the Dirichlet process
         (DP), Pitman-Yor process (PYP) and weighted-uniform (WU) models when
         analyzing 720 \datasets with 5,000 to 500,000 characters simulated
-        under the independent-divergences model
+        under the independent-divergences model.
         Mean \etimesets error is the mean partition distance
         of the posterior samples from the true
         divergence model (\etimesets),
