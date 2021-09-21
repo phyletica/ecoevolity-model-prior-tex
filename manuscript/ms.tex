@@ -62,41 +62,55 @@
 }{}
 
 \begin{abstract}
-    Abstract here \ldots
+Evolutionary biologists are interested in investigating the evolutionary history of the species. Models are one of the means that allow them to model the world or the evolutionary processes. Therefore, knowing the behavior of the models is important. This study compares the performance of three models Dirichlet process, Pitman-Yor process, and weighted-uniform(DP, PYP, and WU) that are implemented in \ecoevolity software to estimate the number of shared divergence time among 10 pairs of population in the past. Our results show that Pitman-Yor process which is the more flexible model, consistently outperforms the other two models in both simulations (with reduced data sets). The flexibility of Pitman-Yor process has some advantages, especially when it is wrong. 
+
+
 
     \vspace{6pt}
-    \noindent\textbf{KEY WORDS:}
+    \noindent\textbf{KEY WORDS:Phylogeography, divergence time, evolutionary events, Dirichlet process, Pitman-Yor process, weighted-uniform process, the behavior of models.}
+    
+    
 \end{abstract}
 
 \newpage
 
 \section{Introduction}
+Rewrite Intro because it's kind of overlapping with the result section.
 
-In this study, we compared the performance of 3 models (Dirichlet prior, Pitman-Yor prior and Uniform prior) 
+Phylogeographic Study \\
+Sharing divergence time across taxa \\
+Shared divergence across taxa happened via geological events. \\
+Temporal clustering reveals evolutionary history of the taxa. \\
+Temporal pattern- \\
+Model the evolutionary process \\
+Important to know the behavior of the models \\
+Evolutionary events
+
+
+
+We compared the performance of 3 models (Dirichlet prior, Pitman-Yor prior and Uniform prior) 
 that are implemented in Ecoevolity software which is the primary software we used to estimate the number of shared divergence time 
 among 10 pairs of populations in the past. We simulated data and know the true number of divergence time from it. We are interested 
 to estimate the number of divergence time from the generated data. We generated data under 5 various ways to putting prior over all
 of the ways that we can assign a pair to divergence event. And then we analyzed the data under 3 models that we can model  
 and have some sense of comparison. We are interested in how well the models have estimated the divergence time and how well 
-the models have estimated what population pairs belong to which divergence time. 
-
-Before going further we needed to assign prior probabilities to 3 models; how probable each model is. Dirichlet-process prior 
-assigns prior to a new category with probability of \[\frac{1}{a+1}\] and an exsiting category with probability of \[\frac{a}{a+1}\]. The concentration parameter(a) 
+the models have estimated what population pairs belong to which divergence time. We assigned prior probabilities to 3 models; how probable each model is. Dirichlet-process prior 
+assigns prior to a new category with probability of \(\dfrac{1}{\concentration +1}\) and an existing category with probability of \(\dfrac{\concentration}{\concentration+1}\). The concentration parameter(\concentration) 
 makes the DP flexible because we can adjust the concentration parameter to fit our prior expectation. We can put a distribution on the 
-concetration parameter and integrate over uncertainty about the prior probabilities of the divergence models. Pitman-Yor process prior is 
-generalization of Dirichlet process. There is a discount parameter(d) added in PYP and when d=0 PYP converges to DP. Dirichlet has an exponential tail 
-and the discount parameter gives the PYP flexibity over the tail behavior. Uniform prior is every possible divergence model is equally probable. 
+concentration parameter and integrate over uncertainty about the prior probabilities of the divergence models. Pitman-Yor process prior is 
+generalization of Dirichlet process. There is a discount parameter($\discount$) added in PYP and when $\discount= 0$ PYP converges to DP. Dirichlet has an exponential tail 
+and the discount parameter gives the PYP flexibility over the tail behavior. Uniform prior is every possible divergence model is equally probable. 
 Then we have specified the priors in the config files for each of these 3 models that they are comparable to each other to assess the behavior of the models. 
 
-We used these 3 config files and then added 2 more configs (independent and simutanous configs ) to simulate datasets. Independent config 
-basically spefifies there are 10 divergence times and each population diverged independently. Simutanous config specifies that the populations 
-diverged simutanously and there is 1 shared event. And there is another config file which ignores the constant sites(characters). A total of 6 config 
-files are specified to simulate the datasets. We used these 6 config files 4 times to generate scripts and then simulated 10 datasets under each of 
+We used these 3 config files and then added 2 more configs (independent and simutanous configs) to simulate data sets. Independent config 
+basically specifies 10 divergence times and each population diverged independently. Simutanous config specifies that the populations 
+diverged simutanously and there is 1 shared event. And there is another config file which ignores the constant sites (characters). A total of 6 config 
+files are specified to simulate the data sets. We used these 6 config files 4 times to generate scripts and then simulated 10 data sets under each of 
 these 5 models with 5000,000 characters. Then we analyzed the data under 3 models and the results show that Pitman-Yor process is doing better job handling 
-most difficult scenario all 10 pairs diverging independetly because PYP is more flexible model. The coverage is more robust for Pitman-Yor process twice likely.
-So we are interested to see whether this pattern holds with less data. We decided to do another simulation with 4 varying datasets 5,000, 10,000, 50,000, and 100,000. 
-All the datasets simulated under 5 models and then analyzed these datasets under 3 models (DP, PYP, and SW). There are equal number of replicates for both simulations 
-a total of 720 replicates for each simulation. We found that with varying datasets suggest the same Pitman-Yor process has 2 parameters and more flexible might 
+most difficult scenario all 10 pairs diverged independently because PYP is more flexible model. The coverage is more robust for Pitman-Yor process twice likely.
+So we are interested to see whether this pattern holds with less data. We decided to do another simulation with 4 varying data sets 5,000, 10,000, 50,000, and 100,000. 
+All the data sets simulated under 5 models and then analyzed these data sets under 3 models (DP, PYP, and SW). There are equal number of replicates for both simulations 
+a total of 720 replicates for each simulation. We found that with varying data sets suggest the same Pitman-Yor process has 2 parameters and more flexible might 
 have some advantages especially when it is wrong.
 
 \section{Model}
@@ -118,7 +132,7 @@ Our model allows for an arbitrary number of two types of temporal comparisons:
         sizes.
         We will refer to this as a \emph{divergence comparison}.
 \end{enumerate}
-For simplicity, we will use terminology related to divergence comparions, but
+For simplicity, we will use terminology related to divergence comparisons, but
 all of the theory discussed below also applies to demographic comparisons.
 
 For each comparison, we assume we have sampled unlinked biallelic characters;
@@ -434,7 +448,7 @@ $p(\etimesets \given \alldata)$---
     the posterior probability of the true divergence model,
 and
 $p(\etimesets \in \textrm{95\% CS})$---
-    the proportion of simulation replicates for which he true \etimesets is
+    the proportion of simulation replicates for which the true \etimesets is
     included in the 95\% posterior credibility set of divergence models (i.e.,
     coverage).
 
@@ -510,7 +524,7 @@ in these estimates
         true divergence model,
         and
         $p(\etimesets \in \textrm{95\% CS})$ is the proportion of simulation
-        replicates for which he true \etimesets is included in the 95\%
+        replicates for which the true \etimesets is included in the 95\%
         posterior credibility set of divergence models.
         The bars overlaying the violin plots show the interval between the
         2.5\% and 97.5\% percentiles, and the white dot is the median.
@@ -541,7 +555,7 @@ in these estimates
         true divergence model,
         and
         $p(\etimesets \in \textrm{95\% CS})$ is the proportion of simulation
-        replicates for which he true \etimesets is included in the 95\%
+        replicates for which the true \etimesets is included in the 95\%
         posterior credibility set of divergence models.
         The bars overlaying the violin plots show the interval between the
         2.5\% and 97.5\% percentiles, and the white dot is the median.
@@ -552,11 +566,9 @@ in these estimates
     \end{center}
 \end{figure}
 
-Summary Statistics
-Before looking at the results here are some summary statistics that we need to 
-understand in order to interpret the results. Coverage or credible sites is the probability
-of the number events within the credible sites. The probability of estimated number 
-of events equal to the true number of events which basicially tells us how often we 
+A description of some summary statistics that will help us to interpret the results. Coverage or credible sites is the probability
+of the number of events within the credible sites. The probability of estimated number 
+of events equal to the true number of events which basically tells us how often we 
 are right. Median posterior probability is the true number of events given the data 
 and this summary statistics tells us how much support we have for the correct answer.
 Root mean square error quantifies how much error is there and comparing the true 
@@ -588,29 +600,29 @@ than ingoring them. All 10 pairs diverge spontatnous recently causing some MCMC 
 are very few variable sites all 10 pairs diverged recently. Basicailly there is discrepency bewtween 
 gene divergence and population divergence which is the largest at the most recent divergent times.
 Comparing the true number of events with estimated number of events among all the sites. The true 
-divergence time ranges from 1 to 10 and 1 they all share the divergence time and 10 they all 
-diverged independently. The true number of events is the one has the higest posterior probability.
-We have 520 replicates and the grid shows how many of them dall in each cell. The result shows 
-that the data geenrated under PYP and analyzed under PYP. There are 88 datasets for which the true 
+divergence time ranges from 1 to 10.  1 refers they all share the divergence time and 10 means they all 
+diverged independently. The true number of events is the one has the highest posterior probability.
+We have 520 replicates and the grid shows how many of them are in each cell. The result shows 
+that the data generated under PYP and analyzed under PYP. There are 88 data sets for which the true 
 number of divergence is 5 and 76 out of those 88 got the that number correctly. 11 out of 88 
-estimated 4 diverngence times and 1 out of 88 estimated 3 divergence time. 
+estimated 4 divergence times and 1 out of 88 estimated 3 divergence time. 
 The results for two constraint models all the 3 models under which the data is analyzed show that 
-half of the time there are 10 indepedent divergence times for the datasets that is generated under 
-indepdent model. The models are doing very well and they got half of time the correct asnwer. The 
+half of the time there are 10 independent divergence times for the data sets that is generated under 
+independent model. The models are doing very well and they got half of time the correct answer. The 
 ones got wrong are not that far away from the true and they are 8 or 9 event. PYP seems like 
-doing little better in terms of how often ge tthe correct answer and also the confident in that 
-correct asnwer. The median posterior probability for k=10 getting the correct answer
+doing little better in terms of how often get the correct answer and also the confident in that 
+correct answer. The median posterior probability for k=10 getting the correct answer
 given the data is 47\% and it's little lower for the other models. The scenario of co-divergence
-is an easy scenario and it has the proability of 1 for true number of event versus estimated number of 
-event. When the true 1 the models are doing very well estimating the number of divergence time. But 
-when the truth is 10 everything is diverging indepdently then it's more difficult scenario for 
-modles to handle. Therefore, there is variation in the results. 
+is an easy scenario and it has the probability of 1 for true number of event versus estimated number of 
+event. When the truth is 1 the models are doing very well estimating the number of divergence time. But 
+when the truth is 10 everything is diverging independently then it's more difficult scenario for 
+models to handle. Therefore, there is variation in the results. 
 The results of true number of events versus estimated number of events among variable sites. The
 constant sites are very informative and without invariable sites, the median posterior probability
-which is the correct answer is much lower. But the covarage is unaffacted because the 
-likelihood for the missing invariable characters is corrected in Ecoevolity. PYP is doing better when 
-dealing with the most difficult scenario all the 10 pairs are diverging independetly as well. Both in
-terms of covrage and getting the correct answer is much higher than the other two models. 
+which is the correct answer is much lower. But the coverage is unaffected because the 
+likelihood for the missing invariable characters is corrected in \Ecoevolity. PYP is doing better when 
+dealing with the most difficult scenario all the 10 pairs are diverging independently as well. Both in
+terms of coverage and getting the correct answer is much higher than the other two models. 
 
 \subsubsection{Comparing DP, PYP, and \wunif across \dataset sizes}
 
