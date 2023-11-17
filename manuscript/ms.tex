@@ -103,7 +103,8 @@ have some advantages especially when it is wrong.
 
 Here we provide a summary of the model implemented in \ecoevolity; please see
 \citet{Oaks2018ecoevolity} and \citet{Oaks2019codemog} for a full description.
-Our model allows for an arbitrary number of two types of temporal comparisons:
+Our model allows for an arbitrary number and mix of two types of temporal
+comparisons:
 \begin{enumerate}
     \item A population that experienced a change from effective population size
         \epopsize[\rootpopindex]
@@ -125,12 +126,12 @@ For each comparison, we assume we have sampled unlinked biallelic characters;
 i.e., each character evolved along a gene tree that is independent of the
 other characters, conditional on the population history.
 We assume these characters evolved along their gene trees according to a
-finite-sites continuous-time Markov chain model (CTMC).
+finite-sites continuous-time Markov chain (CTMC) model.
 The equilibrium frequency (\gfreq) of the two character states can be
 estimated, making the CTMC model a two-state, general, time-reversible model
 \citep{Tavare1986}.
 Alternatively, if the state frequencies are constrained to be equal, the CTMC
-model is a two-state analog of the ``JC69'' model of nucleotide substitution
+model is a two-state analog of the ``Jukes-Cantor'' model of nucleotide substitution
 \citep{JC1969}.
 For the divergence times to be comparable among comparisons, the relative or
 absolute mutation rate (\murate) or each pair must be specified or given an
@@ -161,7 +162,7 @@ A Dirichlet-process (DP), Pitman-Yor process (PYP), and
 weighted-uniform (WU) model.
 For all of these models we assume the time of each divergence event (\etime) is
 distributed according to a parametric continuous probability distribution, like
-a gamma.
+a gamma distribution.
 
 \subsection{Dirichlet-process (DP) model}
 
@@ -215,8 +216,8 @@ Notice, when $\discount = 0$, the PYP is equivalent to the DP.
 
 \subsection{Weighted-uniform (\wunif) model}
 We also implemented what we are calling a ``weighted-uniform'' (\wunif) model
-that has a single ``split weight'' parameter that controls the relative
-probability of models with different numbers of events.
+that has a single ``split weight'' parameter, denoted as \splitweight, that
+controls the relative probability of models with different numbers of events.
 For a given model with \nevents divergence events, the relative probability
 of each model with $\nevents + 1$ events is \splitweight,
 and the relative probability of each model with $\nevents - 1$ events is
@@ -255,7 +256,7 @@ $k$ divergence events.
 \subsection{Approximating the posterior with MCMC}
 
 We use Markov chain Monte Carlo (MCMC) algorithms to sample from the joint
-posterior distribution of the divergence model (\etimesets), divergence times
+posterior distribution of divergence models (\etimesets), divergence times
 (\etimes), effective population sizes (\epopsize), and any mutation rate
 (\murate) or substitution parameters (\gfreq) that are free to vary
 \citep{Oaks2018ecoevolity,Oaks2019codemog}.
@@ -274,36 +275,36 @@ partition (i.e., the same number of events with the same number of comparisons
 assigned to them) are equally probable.
 Hence, the comparisons are exchangeable under the PYP and DP priors.
 This allows us to use the Gibbs sampling algorithm (Algorithm 8) of
-\citet{Neal2000} to update the \etimesets during the MCMC chain.
+\citet{Neal2000} to update \etimesets during the MCMC chain.
 
 Unlike the PYP and DP, where divergence events with the same
-integer partition were equally probably, under the
+integer partition are equally probable, under the
 \wunif prior, divergence events that share the same number of events (\nevents) are
 equally probable.
 This means that the comparisons are not exchangeable under the \wunif prior,
 and thus Gibbs sampling will not work to sample \etimesets under the \wunif
 prior.
-Instead we use reversible-jump MCMC moves under the \wunif prior.
+Instead we use reversible-jump MCMC moves under the \wunif prior \citep{Green1995}.
 
-\subsubsection{reversible-jump MCMC}
-Layout the rjMCMC moves here \ldots
+% \subsubsection{reversible-jump MCMC}
+% Layout the rjMCMC moves here \ldots
 
 
 \subsection{Software implementation and project documentation}
 
-The models outlined above are implemented in the open-source \cpp package,
+We implemented the models outlined above in the open-source \cpp package,
 \ecoevolity, which is freely available from
 \url{https://github.com/phyletica/ecoevolity}, with documentation available
 at
 \url{http://phyletica.org/ecoevolity/}.
-The test suite of \ecoevolity
-validates the likelihood calculations and that the MCMC algorithms sample from
-the expected prior distribution when data are ignored.
+In the test suite of \ecoevolity, we validate model likelihood calculations and
+test that the MCMC algorithms sample from the expected prior distribution when
+data are ignored.
 All of our analyses were performed with
 Commit c1685dfa
 of the \ecoevolity software package,
 and all of the functionality included in this commit is part of
-the release of Version \highLight{X.X.X}.
+the release of Version \highLight{1.0.0}.
 A detailed history of this project, including all of the scripts
 needed to produce our results, is available at
 \url{https://github.com/phyletica/ecoevolity-model-prior}
@@ -319,7 +320,7 @@ work, which is hosted as a website at
 
 We used \simcoevolity and \ecoevolity of the \ecoevolity software
 package
-\citep[Version 0.3.2 Commit c1685dfa][]{Oaks2018ecoevolity}
+\citep[Commit c1685dfa][]{Oaks2018ecoevolity}
 to simulate and analyze \datasets, respectively.
 Each simulated \dataset comprised biallelic characters from 2 diploid
 individuals (4 genomes) sampled per population from 10 pairs of populations
@@ -346,7 +347,7 @@ From the four chains of each analysis, we calculated the potential
 scale reduction factor \citep[PSRF; the square root of Equation 1.1
 in][]{Brooks1998} and effective sample size \citep[ESS;][]{Gong2014} for all
 continuous parameters and the log likelihood using
-\pycoevolity (Version 0.2.6 Commit 27cb15e5).
+\pycoevolity (Commit 27cb15e5).
 When plotting results, we highlight any simulation replicates that have a
 $\textrm{PSRF} > 1.2$.
 
@@ -419,7 +420,7 @@ To calculate this distance we used the Hungarian (or Kuhn-Munkres) algorithm
 as implemented in Version 1.1.4 of the Munkres Python package
 \citep{Clapper2020}.
 
-In addition to partition distances as metric for \etimesets error, we used
+In addition to partition distance as a metric for \etimesets error, we used
 three additional statistics to quantify performance in estimating \etimesets:
 $p(\hat{\etimesets} =\etimesets)$---
     the proportion of simulation replicates in which the true \etimesets had
@@ -465,8 +466,8 @@ This is true across all of the \dataset sizes we simulated
 under the independent-divergences model
 (\fig~\ref{fig:modelperformancebysize}).
 However, the differences in performance are small and the order of the three
-models mirror the prior probability they place on the independent-divergences
-model.
+models mirror the small differences in prior probability they place on the
+independent-divergences model.
 
 We see similar patterns in the relative performance of the DP, PYP, and
 \wunif models when only the variable characters from the simulated
