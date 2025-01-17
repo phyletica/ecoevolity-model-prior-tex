@@ -347,7 +347,7 @@ From the four chains of each analysis, we calculated the potential
 scale reduction factor \citep[PSRF; the square root of Equation 1.1
 in][]{Brooks1998} and effective sample size \citep[ESS;][]{Gong2014} for all
 continuous parameters and the log likelihood using
-\pycoevolity (Commit 27cb15e5).
+\pycoevolity \citep[Commit 27cb15e5;][]{Oaks2018ecoevolity}.
 When plotting results, we highlight any simulation replicates that have a
 $\textrm{PSRF} > 1.2$.
 
@@ -617,7 +617,23 @@ terms of coverage and getting the correct answer is much higher than the other t
 % Nuisane Parameters
 
 
-\subsection{Empirical application?}
+\subsection{Empirical application}
+
+\begin{figure}[htbp]
+    \begin{center}
+        \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{../images/from-project-repo/grid-cyrtodactylus-cropped.pdf}
+        \captionsetup{listformat=figList}
+        \caption{
+            Results from the eight pairs of \spp{Cyrtodactylus} populations are
+            robust across all three priors on the clustering of divergence
+            times.
+            We generated the plots using Version 0.2.12 (Commit 06f8bb8) of
+            \pycoevolity \citep{Oaks2018ecoevolity} and Version 3.1.3 of
+            matplotlib \citep{matplotlib}.
+        }
+        \label{fig:cyrtresults}
+    \end{center}
+\end{figure}
 
 
 \section{Discussion}
@@ -629,8 +645,7 @@ We thank \ldots
 This work was supported by funding provided to JRO from the National Science
 Foundation (NSF grant number DEB 1656004).
 The computational work was made possible by the Auburn University (AU) Hopper
-Cluster supported by the AU Office of Information Technology
-and
+and Easley Clusters supported by the AU Office of Information Technology and
 a grant of high-performance computing resources and technical support from the
 Alabama Supercomputer Authority.
 This paper is contribution number \highLight{XXX} of the Auburn University
